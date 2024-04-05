@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.urls import path, include
-from .views import PostListCreateView, PostDetail
+from .views import PostListCreateView, PostDetail, Post_MetaListCreateView, Post_MetaDetail, CommentListCreateView, CommentDetail
+from .views import UserListCreateView, UsertDetail
 
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
@@ -21,6 +22,12 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('post/',  PostListCreateView.as_view()),
     path('post/<int:id>/', PostDetail.as_view(), name='user-detail'),
+    path('post_meta/',  Post_MetaListCreateView.as_view()),
+    path('post_meta/<int:id>/', Post_MetaDetail.as_view()),
+    path('comment/',  CommentListCreateView.as_view()),
+    path('comment/<int:id>/', CommentDetail.as_view() ),
+    path('users/',  UserListCreateView.as_view()),
+    path('users/<int:id>/', UsertDetail.as_view() ),
 
 
 
