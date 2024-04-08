@@ -3,7 +3,7 @@ from .models import Posts, Post_Meta, Comment, Users
 from rest_framework import status,generics,parsers
 from django.shortcuts import get_object_or_404
 from .serializers import PostsSerializer, Post_MetaSerializer, CommentSerializer, UsersSerializer, UsersSerializerPatch
-
+from .serializers import Post_MetaSerializerPatch, CommentSerializerPatch
 
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -47,9 +47,37 @@ class PostDetail(generics.GenericAPIView):
             serializer = self.get_serializer(post).data   #this point out to previous mentioned
             return Response(serializer)
         return Response(status=status.HTTP_404_NOT_FOUND)
+    
+
+
+    @swagger_auto_schema(
+        request_body=CommentSerializerPatch,
+        responses={
+            200: "Success",
+            400: "Bad Request",
+            404: "Not Found"
+        }
+    )
+    def patch(self, request, id, format=None):
+        comment = self.get_object(id)
+        if comment:
+            serializer = CommentSerializerPatch(comment, data=request.data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 
+    @swagger_auto_schema(
+        request_body=PostsSerializer,
+        responses={
+            200: "Success",
+            400: "Bad Request",
+            404: "Not Found"
+        }
+    )
     def put(self, request, id, format=None):
         post = get_object_or_404(Posts, pk=id)
         serializer = PostsSerializer(post, data=request.data)
@@ -57,8 +85,8 @@ class PostDetail(generics.GenericAPIView):
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
-        
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
 
     
     def delete(self, request, id, format=None):
@@ -106,17 +134,41 @@ class Post_MetaDetail(generics.GenericAPIView):
         return Response(status=status.HTTP_404_NOT_FOUND)
 
 
+    @swagger_auto_schema(
+        request_body=Post_MetaSerializerPatch,
+        responses={
+            200: "Success",
+            400: "Bad Request",
+            404: "Not Found"
+        }
+    )
+    def patch(self, request, id, format=None):
+        postmeta = self.get_object(id)
+        if postmeta:
+            serializer = Post_MetaSerializerPatch(postmeta, data=request.data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(status=status.HTTP_404_NOT_FOUND)
 
+    @swagger_auto_schema(
+        request_body=Post_MetaSerializer,
+        responses={
+            200: "Success",
+            400: "Bad Request",
+            404: "Not Found"
+        }
+    )
     def put(self, request, id, format=None):
-        post = get_object_or_404(Post_Meta, pk=id)
-        serializer = Post_MetaSerializer(post, data=request.data)
+        postmeta = get_object_or_404(Post_Meta, pk=id)
+        serializer = Post_MetaSerializer(postmeta, data=request.data)
         
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
         
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
     
     def delete(self, request, id, format=None):
         user = self.get_object(id)
@@ -161,12 +213,38 @@ class CommentDetail(generics.GenericAPIView):
             serializer = CommentSerializer(post)
             return Response(serializer.data)
         return Response(status=status.HTTP_404_NOT_FOUND)
+    
 
+    @swagger_auto_schema(
+        request_body=CommentSerializerPatch,
+        responses={
+            200: "Success",
+            400: "Bad Request",
+            404: "Not Found"
+        }
+    )
+    def patch(self, request, id, format=None):
+        comment = self.get_object(id)
+        if comment:
+            serializer = CommentSerializerPatch(comment, data=request.data, partial=True)
+            if serializer.is_valid():
+                serializer.save()
+                return Response(serializer.data)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response(status=status.HTTP_404_NOT_FOUND)
+    
 
-
+    @swagger_auto_schema(
+        request_body=CommentSerializer,
+        responses={
+            200: "Success",
+            400: "Bad Request",
+            404: "Not Found"
+        }
+    )
     def put(self, request, id, format=None):
-        post = get_object_or_404(Comment, pk=id)
-        serializer = CommentSerializer(post, data=request.data)
+        comment = get_object_or_404(Comment, pk=id)
+        serializer = CommentSerializer(comment, data=request.data)
         
         if serializer.is_valid():
             serializer.save()
