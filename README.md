@@ -1,24 +1,34 @@
 
 ### Installation process and running of the application
 
-Use `git clone https://github.com/ShailendraShetty3/Google_Review_Frontend.git` command to install it in the local system.
+Create a folder to keep the project and virtual environment(considered best practice not necessarily followed but prefered) and move to the same directory.
+
+Use `git clone https://github.com/ShailendraShetty3/Google_Review.git` command to install it in the local system.
 
 After installation move to the project directory
 
-Use `npm install` command to install all the dependancies.
-if it doesn't work use `npm install --force`.
+Use `py -m venv myVirtualenv` to create virtual environment in windows.
+If you are a Linux or MacOS user use `python -m venv myVirtualenv` to create virtual environment.
 
-Change the `REACT_APP_BOOKS_KEY` in the .env file with your API Key from google cloud console.
+use `cd myVirtualenv` to move to the virtual environment
 
-Change the `REACT_APP_GOOGLE_CLIENT_ID` in the .env file with your Client Id from google cloud console.
+Activate virtual environment by `Scripts\activate`
 
-Currently i have kept my Client Id and API Key you have to change it to your respective keys.
+If your virtual environment is activated you can see `(myVirtualenv)` in your terminal
+Note use Command Prompt and don't use windows powershell. You have to customize it before using windows powershell for activating environment.
 
-To run the application use `npm start`
+Now come out of virtual environment folder and move to your project forlder which is `Google_Review`
+Note virtual environment has to be still activated.
 
-Note You have to run the application in the same port which you have mentioned in the cloud console while getting the API Key.
+Now use `pip install -r requirements.txt` to install all the dependencies required for the project.
 
-Note You have to login with the same account mentioned in the google cloud console as a valid user.
+Create the PostgreSQL database with name `integration` and user `shetty` if you want to change the configuration of the database connection go to `settings.py` and change the configuration of `DATABASES` section.
 
+Use `python manage.py makemigrations` to to to configure the database for changes.
 
-make sure you have started your backend django server which is currently set to port 8000. if you want to change it to other port just change the `BaseURL` port of urls.js file of urls directory.
+Use `python manage.py migrate` to apply the migrations to the database.
+
+Use `python manage.py runserver 8000` to run the server in the port `8000` you can change it by changing the port number.
+
+If you are running the server in `8000` port you can see API documentation swagger in `Your_IP_Address/8000/swagger/`
+
