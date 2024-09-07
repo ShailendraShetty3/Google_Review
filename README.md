@@ -1,5 +1,5 @@
 
-### Installation process and running of the application
+### Installation process and running of the server
 
 Create a folder to keep the project and virtual environment(considered best practice not necessarily followed but prefered) and move to the same directory.
 
