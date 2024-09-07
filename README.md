@@ -8,13 +8,15 @@ Use `git clone https://github.com/ShailendraShetty3/Google_Review.git` command t
 After installation move to the project directory
 
 Use `py -m venv myVirtualenv` to create virtual environment in windows.
+
 If you are a Linux or MacOS user use `python -m venv myVirtualenv` to create virtual environment.
 
-use `cd myVirtualenv` to move to the virtual environment
+use `cd myVirtualenv` to move to the virtual environment.
 
 Activate virtual environment by `Scripts\activate`
 
-If your virtual environment is activated you can see `(myVirtualenv)` in your terminal
+If your virtual environment is activated you can see `(myVirtualenv)` in your terminal.
+
 Note use Command Prompt and don't use windows powershell. You have to customize it before using windows powershell for activating environment.
 
 Now come out of virtual environment folder and move to your project forlder which is `Google_Review`
